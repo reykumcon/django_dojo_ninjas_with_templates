@@ -1,0 +1,25 @@
+h1, h3 {
+    text-align: center;
+    margin: 20px;
+}
+
+div.col-5 {
+    padding: 20px;
+    text-align: center;
+}
+
+#dojo_button {
+    margin-left: 60px;
+}
+
+#ninja_button {
+    margin-left: 120px;
+}
+
+div.col-8 h5, ul {
+    margin-left: 50px
+}
+
+div.col-8 h5, a {
+    display: inline-block;
+}

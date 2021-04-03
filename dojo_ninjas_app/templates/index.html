@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Dojo & Ninjas</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Dojo & Ninjas</h1>
+        <div class="row">
+            <div class="col">
+                <h3>Add a Dojo</h3>
+                <form action="add_dojo" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="name" class="col-2 col-form-label">Name</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" name="name" id="name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="city" class="col-2 col-form-label">City</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" name="city" id="city">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="state" class="col-2 col-form-label">State</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" name="state" id="state">
+                        </div>
+                    </div>
+                    <input id="dojo_button" type="submit" class="btn btn-info" value="Add">
+                </form>
+            </div>
+            <div class="col">
+                <h3>Add a Ninja</h3>
+                <form action="add_ninja" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="first_name" class="col-4 col-form-label">First Name</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="first_name" id="first_name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="last_name" class="col-4 col-form-label">Last Name</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="last_name" id="last_name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="dojo" class="col-4 col-form-label">Dojo</label>
+                        <div class="col-8">
+                            <select class="form-control" name="dojo" id="dojo">
+                                <option selected disabled>-select a dojo-</option>
+                                {% for dojo in all_dojos %}
+                                    <option value={{ dojo.id }}>{{ dojo.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <input id="ninja_button" type="submit" class="btn btn-info" value="Add">
+                </form>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h3>All the Dojos</h3>
+                {% for dojo in all_dojos %}
+                    <h5>Ninjas at the {{dojo.name}} - {{dojo.ninjas.count}}</h5>
+                    <a href="delete_dojo" class="btn btn-info">Delete Dojo</a>
+                    <ul>    
+                        {% for ninja in dojo.ninjas.all %}
+                            <li>{{ninja.first_name}} {{ninja.last_name}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
